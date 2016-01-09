@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RegexpTesterProgram
 {
-    interface IRegexpTester
+    public interface IRegexpTester
     {
+        bool Test(string stringToTest);
     }
 }

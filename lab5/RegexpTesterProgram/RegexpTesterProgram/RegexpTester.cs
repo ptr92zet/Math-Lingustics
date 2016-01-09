@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace RegexpTesterProgram
 {
-    class RegexpTester
+    class RegexpTester : IRegexpTester
     {
+        private string currentRegexp;
+        private string currentString;
+
+        private List<string> standardRegexps;
+        private List<string> stringsToTest;
+
+        public bool Test(string stringToTest)
+        {
+            
+        }
     }
 }
