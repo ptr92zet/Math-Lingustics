@@ -2,37 +2,50 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RegexpTesterProgram
 {
     public class RegexpTester : IRegexpTester
     {
-        private string currentRegexp;
-        private string currentString;
+        public string CurrentRegexp { get; set; }
 
-        private List<string> standardRegexps;
+        //public string CurrentString { get; set; }
+
+        private List<string> StandardRegexps;
         private List<string> stringsToTest;
 
         public bool Test(string stringToTest)
         {
-            return true;
+            Regex r = new Regex(CurrentRegexp);
+            return r.Match(stringToTest).Success;
         }
 
         public void SetStringsToTest(string fileContent)
         {
-            string[] stringTokens = fileContent.Split(";\n".ToCharArray());
+            string[] stringTokens = fileContent.Split(';');
+            foreach (string s in stringTokens)
+            {
+                s.Trim('\n');
+            }
             this.stringsToTest = new List<string>(stringTokens);
         }
 
-        public string GetStringsToTest()
+        //public string GetStringsToTest()
+        //{
+        //    StringBuilder builder = new StringBuilder();
+        //    foreach (string str in this.stringsToTest)
+        //    {
+        //        builder.Append(str);
+        //    }
+        //    return builder.ToString();
+        //}
+
+        public string[] GetStringsToTest()
         {
-            StringBuilder builder = new StringBuilder();
-            foreach (string str in this.stringsToTest)
-            {
-                builder.Append(str + "\n");
-            }
-            return builder.ToString();
+            return this.stringsToTest.ToArray();
         }
+
     }
 }

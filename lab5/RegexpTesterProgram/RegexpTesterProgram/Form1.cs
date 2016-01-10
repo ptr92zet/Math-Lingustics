@@ -31,9 +31,71 @@ namespace RegexpTesterProgram
                 fileContent = reader.ReadToEnd();
                 reader.Close();
                 regexpTester.SetStringsToTest(fileContent);
-                MessageBox.Show(message + regexpTester.GetStringsToTest());
+                loadedStringsComboBox.Items.AddRange(regexpTester.GetStringsToTest());
+                MessageBox.Show(message + regexpTester.GetStringsToTest(), "Loaded strings");
             }
 
         }
+
+        private void typeStringCheckBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (typeStringCheckBox.Checked)
+            {
+                typedStringField.Enabled = true;
+                loadedStringsComboBox.Enabled = false;
+            }
+            else
+            {
+                typedStringField.Enabled = false;
+                loadedStringsComboBox.Enabled = true;
+            }
+        }
+
+        private void typeRegexpCheckBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (typeRegexpCheckBox.Checked)
+            {
+                typedRegexpField.Enabled = true;
+                standardRegexpComboBox.Enabled = false;
+            }
+            else
+            {
+                typedRegexpField.Enabled = false;
+                standardRegexpComboBox.Enabled = true;
+            }
+        }
+
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            string currRegexp;
+            string currString;
+            if (typeRegexpCheckBox.Checked)
+            {
+                currRegexp = typedRegexpField.Text;
+            }
+            else
+            {
+                currRegexp = standardRegexpComboBox.SelectedItem.ToString();
+            }
+            if (typeStringCheckBox.Checked)
+            {
+                currString = typedStringField.Text;
+            }
+            else
+            {
+                currString = loadedStringsComboBox.SelectedItem.ToString();
+            }
+
+            regexpTester.CurrentRegexp = currRegexp;
+            if (regexpTester.Test(currString))
+            {
+                resultLabel.Text = "MATCH!";
+            }
+            else
+            {
+                resultLabel.Text = "NO MATCH!";
+            }
+        }
+
     }
 }
