@@ -22,17 +22,14 @@ namespace RegexpTesterProgram
 
         private void loadButton_Click(object sender, EventArgs e)
         {
-            string fileContent;
-            string message = "Strings to test:\n";
+            string content;
             OpenFileDialog fileDialog = new OpenFileDialog();
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 StreamReader reader = new StreamReader(fileDialog.FileName);
-                fileContent = reader.ReadToEnd();
+                content = reader.ReadToEnd();
                 reader.Close();
-                regexpTester.SetStringsToTest(fileContent);
-                loadedStringsComboBox.Items.AddRange(regexpTester.GetStringsToTest());
-                MessageBox.Show(message + regexpTester.GetStringsToTest(), "Loaded strings");
+                loadedStringsComboBox.Items.AddRange(getStringsFromFileContent(content));
             }
 
         }
@@ -97,5 +94,50 @@ namespace RegexpTesterProgram
             }
         }
 
+        private void standardRegexpComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            int item = standardRegexpComboBox.SelectedIndex;
+            string regexp = "";
+            switch (item)
+            {
+                case 0:
+                    regexp = StandardRegexp.IPv4Regexp();
+                    break;
+                case 1:
+                    regexp = StandardRegexp.SubnetMaskRegexp();
+                    break;
+                case 2:
+                    regexp = StandardRegexp.MACAddressRegexp();
+                    break;
+                case 3:
+                    regexp = StandardRegexp.EmailAddressRegexp();
+                    break;
+                case 4:
+                    regexp = StandardRegexp.IntegersAdditionRegexp();
+                    break;
+                case 5:
+                    regexp = StandardRegexp.ComplexNumbersSubtractionRegexp();
+                    break;
+                case 6:
+                    regexp = StandardRegexp.HTMLTextFormatMarkupsRegexp();
+                    break;
+                case 7:
+                    regexp = StandardRegexp.HTMLTableMarkupsRegexp();
+                    break;
+            }
+            regexpTester.CurrentRegexp = regexp;
+            typeRegexpCheckBox.Text = regexp;
+        }
+
+        // OWN HELPERS
+        private string[] getStringsFromFileContent(string fileContent)
+        {
+            string[] stringTokens = fileContent.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < stringTokens.Length; i++)
+            {
+                stringTokens[i] = stringTokens[i].TrimEnd(';');
+            }
+            return stringTokens;
+        }
     }
 }

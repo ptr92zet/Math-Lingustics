@@ -34,6 +34,7 @@
             this.typedStringField = new System.Windows.Forms.TextBox();
             this.selectStandardLabel = new System.Windows.Forms.Label();
             this.resultBox = new System.Windows.Forms.GroupBox();
+            this.resultLabel = new System.Windows.Forms.Label();
             this.regexpGroupBox = new System.Windows.Forms.GroupBox();
             this.typeRegexpCheckBox = new System.Windows.Forms.CheckBox();
             this.testStringsGroupBox = new System.Windows.Forms.GroupBox();
@@ -41,7 +42,6 @@
             this.selectStringLabel = new System.Windows.Forms.Label();
             this.loadedStringsComboBox = new System.Windows.Forms.ComboBox();
             this.loadButton = new System.Windows.Forms.Button();
-            this.resultLabel = new System.Windows.Forms.Label();
             this.resultBox.SuspendLayout();
             this.regexpGroupBox.SuspendLayout();
             this.testStringsGroupBox.SuspendLayout();
@@ -68,10 +68,20 @@
             // standardRegexpComboBox
             // 
             this.standardRegexpComboBox.FormattingEnabled = true;
+            this.standardRegexpComboBox.Items.AddRange(new object[] {
+            "IPv4 address",
+            "Subnet mask",
+            "MAC address",
+            "Email address",
+            "Integers addition operations",
+            "Complex numbers subtraction operations",
+            "HTML text formatting markups",
+            "HTML table markups"});
             this.standardRegexpComboBox.Location = new System.Drawing.Point(199, 59);
             this.standardRegexpComboBox.Name = "standardRegexpComboBox";
             this.standardRegexpComboBox.Size = new System.Drawing.Size(212, 21);
             this.standardRegexpComboBox.TabIndex = 3;
+            this.standardRegexpComboBox.SelectionChangeCommitted += new System.EventHandler(this.standardRegexpComboBox_SelectionChangeCommitted);
             // 
             // typedStringField
             // 
@@ -99,6 +109,18 @@
             this.resultBox.TabIndex = 8;
             this.resultBox.TabStop = false;
             this.resultBox.Text = "Result:";
+            // 
+            // resultLabel
+            // 
+            this.resultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.resultLabel.AutoSize = true;
+            this.resultLabel.Location = new System.Drawing.Point(178, 19);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(56, 13);
+            this.resultLabel.TabIndex = 0;
+            this.resultLabel.Text = "Not tested";
             // 
             // regexpGroupBox
             // 
@@ -175,18 +197,6 @@
             this.loadButton.Text = "Load from file";
             this.loadButton.UseVisualStyleBackColor = true;
             this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
-            // 
-            // resultLabel
-            // 
-            this.resultLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(178, 19);
-            this.resultLabel.Name = "resultLabel";
-            this.resultLabel.Size = new System.Drawing.Size(56, 13);
-            this.resultLabel.TabIndex = 0;
-            this.resultLabel.Text = "Not tested";
             // 
             // Form1
             // 
