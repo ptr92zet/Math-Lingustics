@@ -11,12 +11,12 @@ namespace RegexpTesterProgram
     {
         public static string IPv4Regexp()
         {
-            return "^0*(25[0-5]|2[0-4]\d|1?\d\d?)(\.0*(25[0-5]|2[0-4]\d|1?\d\d?)){3}$";
+            return @"^(25[0-5]|2[0-4]\d|1?\d\d?)(\.(25[0-5]|2[0-4]\d|1?\d\d?)){3}$";
         }
 
         public static string SubnetMaskRegexp()
         {
-            return "";
+            return @"^(25[0-5]|2[0-4]\d|1?\d\d?)(\.(25[0-5]|2[0-4]\d|1?\d\d?)){3}$";
         }
 
         public static string MACAddressRegexp()

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -72,7 +73,7 @@ namespace RegexpTesterProgram
             }
             else
             {
-                currRegexp = standardRegexpComboBox.SelectedItem.ToString();
+                currRegexp = recognizeStandardString();
             }
             if (typeStringCheckBox.Checked)
             {
@@ -95,6 +96,27 @@ namespace RegexpTesterProgram
         }
 
         private void standardRegexpComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            typedRegexpField.Text = recognizeStandardString();
+        }
+
+        private void loadedStringsComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            this.typedStringField.Text = loadedStringsComboBox.SelectedItem.ToString();
+        }
+
+        // OWN HELPERS
+        private string[] getStringsFromFileContent(string fileContent)
+        {
+            string[] stringTokens = fileContent.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < stringTokens.Length; i++)
+            {
+                stringTokens[i] = stringTokens[i].TrimEnd(';');
+            }
+            return stringTokens;
+        }
+
+        private string recognizeStandardString()
         {
             int item = standardRegexpComboBox.SelectedIndex;
             string regexp = "";
@@ -125,19 +147,7 @@ namespace RegexpTesterProgram
                     regexp = StandardRegexp.HTMLTableMarkupsRegexp();
                     break;
             }
-            regexpTester.CurrentRegexp = regexp;
-            typeRegexpCheckBox.Text = regexp;
-        }
-
-        // OWN HELPERS
-        private string[] getStringsFromFileContent(string fileContent)
-        {
-            string[] stringTokens = fileContent.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < stringTokens.Length; i++)
-            {
-                stringTokens[i] = stringTokens[i].TrimEnd(';');
-            }
-            return stringTokens;
+            return regexp;
         }
     }
 }

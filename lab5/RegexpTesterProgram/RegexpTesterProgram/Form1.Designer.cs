@@ -187,6 +187,7 @@
             this.loadedStringsComboBox.Name = "loadedStringsComboBox";
             this.loadedStringsComboBox.Size = new System.Drawing.Size(212, 21);
             this.loadedStringsComboBox.TabIndex = 8;
+            this.loadedStringsComboBox.SelectionChangeCommitted += new System.EventHandler(this.loadedStringsComboBox_SelectionChangeCommitted);
             // 
             // loadButton
             // 
