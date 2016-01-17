@@ -31,22 +31,24 @@ namespace RegexpTesterProgram
 
         public static string IntegersAdditionRegexp()
         {
-            return "";
+            return @"^-?(0|[1-9][0-9]*)(\+(0|[1-9][0-9]*|\(-(0|[1-9][0-9]*)\)))*$"; // allows 5+3+4, 5+3+(-4), but doesn't allow 5+3-4, eliminates leading 0's
         }
 
         public static string ComplexNumbersSubtractionRegexp()
         {
-            return "";
+            return @"^[+-]?"+
+                   @"\(((0|[1-9][0-9]*)\.[0-9]+|(0|[1-9][0-9]*))[+-]((0|[1-9][0-9]*)\.[0-9]+|(0|[1-9][0-9]*))i\)" +
+                   @"-\(((0|[1-9][0-9]*)\.[0-9]+|(0|[1-9][0-9]*))[+-]((0|[1-9][0-9]*)\.[0-9]+|(0|[1-9][0-9]*))i\)$";
         }
 
         public static string HTMLTextFormatMarkupsRegexp()
         {
-            return "";
+            return @"^(<(?<markup>(p|b|i|u|strong|small|strike|h[1-6]|pre|code|tt|blockquote|font|center))[^>]*>[^<]*</\k<markup>>)+$";
         }
 
         public static string HTMLTableMarkupsRegexp()
         {
-            return "";
+            return @"^(<(?<markup>(table|tr|td))[^>]*>[^<]*</\k<markup>>)+$";
         }
     }
 }
