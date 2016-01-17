@@ -21,12 +21,12 @@ namespace RegexpTesterProgram
 
         public static string MACAddressRegexp()
         {
-            return "";
+            return @"^(([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}|([0-9a-fA-F]{2}-){5}[0-9a-fA-F]{2})$";
         }
 
         public static string EmailAddressRegexp()
         {
-            return "";
+            return @"^(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@)(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9])$";
         }
 
         public static string IntegersAdditionRegexp()
