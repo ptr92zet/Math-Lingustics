@@ -34,6 +34,12 @@
             this.button5PLN = new System.Windows.Forms.Button();
             this.resultBox = new System.Windows.Forms.RichTextBox();
             this.resultLabel = new System.Windows.Forms.Label();
+            this.readTapeButton = new System.Windows.Forms.Button();
+            this.onTapeLabel = new System.Windows.Forms.Label();
+            this.tapeContentLabel = new System.Windows.Forms.Label();
+            this.currentTapeIndexLabel = new System.Windows.Forms.Label();
+            this.currentTapeIndex = new System.Windows.Forms.Label();
+            this.resetButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // coinToInsertLabel
@@ -77,7 +83,7 @@
             // 
             // resultBox
             // 
-            this.resultBox.Location = new System.Drawing.Point(16, 59);
+            this.resultBox.Location = new System.Drawing.Point(16, 173);
             this.resultBox.Name = "resultBox";
             this.resultBox.Size = new System.Drawing.Size(299, 96);
             this.resultBox.TabIndex = 5;
@@ -86,17 +92,78 @@
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(13, 43);
+            this.resultLabel.Location = new System.Drawing.Point(13, 157);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(90, 13);
             this.resultLabel.TabIndex = 6;
             this.resultLabel.Text = "Parkometer state:";
             // 
+            // readTapeButton
+            // 
+            this.readTapeButton.Location = new System.Drawing.Point(91, 42);
+            this.readTapeButton.Name = "readTapeButton";
+            this.readTapeButton.Size = new System.Drawing.Size(224, 23);
+            this.readTapeButton.TabIndex = 7;
+            this.readTapeButton.Text = "Read tape";
+            this.readTapeButton.UseVisualStyleBackColor = true;
+            this.readTapeButton.Click += new System.EventHandler(this.readTapeButton_Click);
+            // 
+            // onTapeLabel
+            // 
+            this.onTapeLabel.AutoSize = true;
+            this.onTapeLabel.Location = new System.Drawing.Point(13, 80);
+            this.onTapeLabel.Name = "onTapeLabel";
+            this.onTapeLabel.Size = new System.Drawing.Size(48, 13);
+            this.onTapeLabel.TabIndex = 8;
+            this.onTapeLabel.Text = "On tape:";
+            // 
+            // tapeContentLabel
+            // 
+            this.tapeContentLabel.AutoSize = true;
+            this.tapeContentLabel.Location = new System.Drawing.Point(13, 103);
+            this.tapeContentLabel.Name = "tapeContentLabel";
+            this.tapeContentLabel.Size = new System.Drawing.Size(0, 13);
+            this.tapeContentLabel.TabIndex = 9;
+            // 
+            // currentTapeIndexLabel
+            // 
+            this.currentTapeIndexLabel.AutoSize = true;
+            this.currentTapeIndexLabel.Location = new System.Drawing.Point(13, 131);
+            this.currentTapeIndexLabel.Name = "currentTapeIndexLabel";
+            this.currentTapeIndexLabel.Size = new System.Drawing.Size(96, 13);
+            this.currentTapeIndexLabel.TabIndex = 10;
+            this.currentTapeIndexLabel.Text = "Current tape index:";
+            // 
+            // currentTapeIndex
+            // 
+            this.currentTapeIndex.AutoSize = true;
+            this.currentTapeIndex.Location = new System.Drawing.Point(126, 131);
+            this.currentTapeIndex.Name = "currentTapeIndex";
+            this.currentTapeIndex.Size = new System.Drawing.Size(10, 13);
+            this.currentTapeIndex.TabIndex = 11;
+            this.currentTapeIndex.Text = " ";
+            // 
+            // resetButton
+            // 
+            this.resetButton.Location = new System.Drawing.Point(16, 42);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(56, 23);
+            this.resetButton.TabIndex = 12;
+            this.resetButton.Text = "Reset";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            // 
             // ParkometerDFATuringForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 167);
+            this.ClientSize = new System.Drawing.Size(331, 281);
+            this.Controls.Add(this.resetButton);
+            this.Controls.Add(this.currentTapeIndex);
+            this.Controls.Add(this.currentTapeIndexLabel);
+            this.Controls.Add(this.tapeContentLabel);
+            this.Controls.Add(this.onTapeLabel);
+            this.Controls.Add(this.readTapeButton);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.resultBox);
             this.Controls.Add(this.button5PLN);
@@ -118,6 +185,12 @@
         private System.Windows.Forms.Button button5PLN;
         private System.Windows.Forms.RichTextBox resultBox;
         private System.Windows.Forms.Label resultLabel;
+        private System.Windows.Forms.Button readTapeButton;
+        private System.Windows.Forms.Label onTapeLabel;
+        private System.Windows.Forms.Label tapeContentLabel;
+        private System.Windows.Forms.Label currentTapeIndexLabel;
+        private System.Windows.Forms.Label currentTapeIndex;
+        private System.Windows.Forms.Button resetButton;
     }
 }
 

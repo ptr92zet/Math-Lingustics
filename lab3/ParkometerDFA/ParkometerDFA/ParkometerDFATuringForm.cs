@@ -12,24 +12,27 @@ namespace ParkometerDFATuring
 {
     public partial class ParkometerDFATuringForm : Form
     {
-        DFA parkometerDFA = new DFA(State.Empty);
+        DFATuring parkometerDFATuring = new DFATuring();
+        private List<int> coins = new List<int>();
         public ParkometerDFATuringForm()
         {
             InitializeComponent();
 
         }
 
-        public void MoveToNextStateAndUpdate(int word)
+        private void MoveToNextStateAndUpdate(int word)
         {
-            State currState = parkometerDFA.MoveToNextState(word);
-            if (currState == State.Full)
-            {
-                resultBox.Text =  parkometerDFA.ListAllTransitions();
-            }
-            else
-            {
-                resultBox.Text = parkometerDFA.GetCurrentState().ToString();
-            }
+            parkometerDFATuring.AddToTape(word);
+            coins.Add(word);
+            tapeContentLabel.Text = String.Join(" ", parkometerDFATuring.GetTapeElements());
+            //if (currState == State.Full)
+            //{
+            //    resultBox.Text =  parkometerDFATuring.ListAllTransitions();
+            //}
+            //else
+            //{
+            //    resultBox.Text = parkometerDFATuring.GetCurrentState().ToString();
+            //}
         }
 
         private void button1PLN_Click(object sender, EventArgs e)
@@ -46,6 +49,34 @@ namespace ParkometerDFATuring
         private void button5PLN_Click(object sender, EventArgs e)
         {
             MoveToNextStateAndUpdate(5);
+        }
+
+        private void readTapeButton_Click(object sender, EventArgs e)
+        {
+            button1PLN.Enabled = false;
+            button2PLN.Enabled = false;
+            button5PLN.Enabled = false;
+            currentTapeIndex.Text = (parkometerDFATuring.CurrentTapeIndex).ToString();
+            if (!parkometerDFATuring.MoveToNextState())
+            {
+                resultBox.Text += parkometerDFATuring.CurrentState.ToString() + "\n";
+            }
+            else
+            {
+                resultBox.Text = parkometerDFATuring.RetrieveAllTransitions() + "\n";
+            }
+            
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            parkometerDFATuring.Reset();
+            resultBox.Text = "";
+            tapeContentLabel.Text = "";
+            currentTapeIndex.Text = "";
+            button1PLN.Enabled = true;
+            button2PLN.Enabled = true;
+            button5PLN.Enabled = true;
         }
     }
 }

@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DFA.cs" />
+    <Compile Include="DFATuring.cs" />
     <Compile Include="ParkometerDFATuringForm.cs">
       <SubType>Form</SubType>
     </Compile>
