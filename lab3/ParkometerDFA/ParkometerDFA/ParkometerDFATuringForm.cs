@@ -17,38 +17,30 @@ namespace ParkometerDFATuring
         public ParkometerDFATuringForm()
         {
             InitializeComponent();
+            resultBox.Text = parkometerDFATuring.CurrentState.ToString() + "\n";
 
         }
 
-        private void MoveToNextStateAndUpdate(int word)
+        private void AddCoinValueToTape(int coin)
         {
-            parkometerDFATuring.AddToTape(word);
-            coins.Add(word);
+            parkometerDFATuring.AddToTape(coin);
             tapeContentLabel.Text = String.Join(" ", parkometerDFATuring.GetTapeElements());
-            //if (currState == State.Full)
-            //{
-            //    resultBox.Text =  parkometerDFATuring.ListAllTransitions();
-            //}
-            //else
-            //{
-            //    resultBox.Text = parkometerDFATuring.GetCurrentState().ToString();
-            //}
         }
 
         private void button1PLN_Click(object sender, EventArgs e)
         {
-            MoveToNextStateAndUpdate(1);
+            AddCoinValueToTape(1);
 
         }
 
         private void button2PLN_Click(object sender, EventArgs e)
         {
-            MoveToNextStateAndUpdate(2);
+            AddCoinValueToTape(2);
         }
 
         private void button5PLN_Click(object sender, EventArgs e)
         {
-            MoveToNextStateAndUpdate(5);
+            AddCoinValueToTape(5);
         }
 
         private void readTapeButton_Click(object sender, EventArgs e)
@@ -77,6 +69,7 @@ namespace ParkometerDFATuring
             button1PLN.Enabled = true;
             button2PLN.Enabled = true;
             button5PLN.Enabled = true;
+            resultBox.Text = parkometerDFATuring.CurrentState.ToString() + "\n";
         }
     }
 }
