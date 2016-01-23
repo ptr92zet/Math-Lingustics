@@ -34,7 +34,7 @@ namespace RegexpTesterProgram
             return @"^-?(0|[1-9][0-9]*)(\+(0|[1-9][0-9]*|\(-(0|[1-9][0-9]*)\)))*$"; // allows 5+3+4, 5+3+(-4), but doesn't allow 5+3-4, eliminates leading 0's
         }
 
-        public static string ComplexNumbersSubtractionRegexp()
+        public static string ComplexNumbersSubtractionRegexp()  // allows: [+-](a[+-]bi)-(c[+-]di), a-d can be double
         {
             return @"^[+-]?"+
                    @"\(((0|[1-9][0-9]*)\.[0-9]+|(0|[1-9][0-9]*))[+-]((0|[1-9][0-9]*)\.[0-9]+|(0|[1-9][0-9]*))i\)" +
