@@ -159,23 +159,26 @@ namespace ParkometerDFATuring
 
         public bool MoveToNextState()
         {
-            currentCoin = tape[currentTapeIndex];
-            switch (currentCoin)
+            if (tape != null && currentTapeIndex < tape.Count)
             {
-                case 1:
-                    ApplyWord1();
-                    break;
-                case 2:
-                    ApplyWord2();
-                    break;
-                case 5:
-                    ApplyWord5();
-                    break;
-            }
-            currentTapeIndex++;
-            if (currentTapeIndex == tape.Count)
-            {
-                reachedEndOfTape = true;
+                currentCoin = tape[currentTapeIndex];
+                switch (currentCoin)
+                {
+                    case 1:
+                        ApplyWord1();
+                        break;
+                    case 2:
+                        ApplyWord2();
+                        break;
+                    case 5:
+                        ApplyWord5();
+                        break;
+                }
+                currentTapeIndex++;
+                if (currentTapeIndex == tape.Count)
+                {
+                    reachedEndOfTape = true;
+                }
             }
 
             return reachedEndOfTape;
