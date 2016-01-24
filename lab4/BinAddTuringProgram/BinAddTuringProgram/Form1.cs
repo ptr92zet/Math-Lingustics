@@ -13,12 +13,21 @@ namespace BinAddTuringProgram
 {
     public partial class Form1 : Form
     {
-        private BinAddTuring incrementMachine;
+        private BinAddTuring turing;
+        private char[] positionArray;
+        private string tape;
         private int index = 0;
         public Form1()
         {
             InitializeComponent();
-            incrementMachine = new BinAddTuring("E", "#");
+            turing = new BinAddTuring("#", "#");
+        }
+
+        private void showHeadPosition()
+        {
+            positionArray = tapeStateLabel.Text.ToCharArray();
+            positionArray[index] = '^';
+            tapePositionLabel.Text = positionArray[index].ToString();
         }
 
         private void loadTapeCheckBox_CheckStateChanged(object sender, EventArgs e)
@@ -52,15 +61,28 @@ namespace BinAddTuringProgram
 
         private void takeStepButton_Click(object sender, EventArgs e)
         {
-            index = incrementMachine.TapeIndex;
+            string tapeSymbol;
+            index = turing.TapeIndex;
+            if (turing.InitialTapeContent != null)
+            {
+                tapeSymbol = turing.InitialTapeContent[index].ToString();
+                turing.CurrentSymbol = tapeSymbol;
+            }
+
+        }
+
+        private void initializeTapeButton_Click(object sender, EventArgs e)
+        {
             if (loadTapeCheckBox.Checked)
             {
-                incrementMachine.CurrentSymbol = onTapeValue.Text[index].ToString();
+                turing.InitialTapeContent = onTapeValue.Text;
             }
             else
             {
-                incrementMachine.CurrentSymbol = typeYourTapeField.Text[index].ToString();
+                turing.InitialTapeContent = typeYourTapeField.Text;
             }
+            tapeStateLabel.Text = turing.InitialTapeContent;
+            showHeadPosition();
         }
     }
 }

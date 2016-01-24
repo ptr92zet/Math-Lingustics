@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.resultBox = new System.Windows.Forms.RichTextBox();
             this.takeStepButton = new System.Windows.Forms.Button();
             this.typeYourTapeField = new System.Windows.Forms.TextBox();
             this.typeYourTapeLabel = new System.Windows.Forms.Label();
@@ -36,21 +35,18 @@
             this.loadTapeButton = new System.Windows.Forms.Button();
             this.onTapeLabel = new System.Windows.Forms.Label();
             this.onTapeValue = new System.Windows.Forms.Label();
+            this.tapeLabel = new System.Windows.Forms.Label();
+            this.tapeStateLabel = new System.Windows.Forms.Label();
+            this.tapePositionLabel = new System.Windows.Forms.Label();
+            this.consoleBox = new System.Windows.Forms.RichTextBox();
+            this.initializeTapeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // resultBox
-            // 
-            this.resultBox.Location = new System.Drawing.Point(11, 181);
-            this.resultBox.Name = "resultBox";
-            this.resultBox.Size = new System.Drawing.Size(356, 112);
-            this.resultBox.TabIndex = 0;
-            this.resultBox.Text = "";
             // 
             // takeStepButton
             // 
-            this.takeStepButton.Location = new System.Drawing.Point(11, 130);
+            this.takeStepButton.Location = new System.Drawing.Point(116, 129);
             this.takeStepButton.Name = "takeStepButton";
-            this.takeStepButton.Size = new System.Drawing.Size(356, 45);
+            this.takeStepButton.Size = new System.Drawing.Size(251, 45);
             this.takeStepButton.TabIndex = 1;
             this.takeStepButton.Text = "Take step";
             this.takeStepButton.UseVisualStyleBackColor = true;
@@ -98,7 +94,7 @@
             // 
             this.onTapeLabel.AutoSize = true;
             this.onTapeLabel.Enabled = false;
-            this.onTapeLabel.Location = new System.Drawing.Point(8, 102);
+            this.onTapeLabel.Location = new System.Drawing.Point(9, 102);
             this.onTapeLabel.Name = "onTapeLabel";
             this.onTapeLabel.Size = new System.Drawing.Size(74, 13);
             this.onTapeLabel.TabIndex = 6;
@@ -108,17 +104,68 @@
             // 
             this.onTapeValue.AutoSize = true;
             this.onTapeValue.Enabled = false;
-            this.onTapeValue.Location = new System.Drawing.Point(88, 102);
+            this.onTapeValue.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.onTapeValue.Location = new System.Drawing.Point(89, 102);
             this.onTapeValue.Name = "onTapeValue";
-            this.onTapeValue.Size = new System.Drawing.Size(10, 13);
+            this.onTapeValue.Size = new System.Drawing.Size(73, 13);
             this.onTapeValue.TabIndex = 7;
-            this.onTapeValue.Text = " ";
+            this.onTapeValue.Text = "The program";
+            // 
+            // tapeLabel
+            // 
+            this.tapeLabel.AutoSize = true;
+            this.tapeLabel.Location = new System.Drawing.Point(12, 189);
+            this.tapeLabel.Name = "tapeLabel";
+            this.tapeLabel.Size = new System.Drawing.Size(35, 13);
+            this.tapeLabel.TabIndex = 8;
+            this.tapeLabel.Text = "Tape:";
+            // 
+            // tapeStateLabel
+            // 
+            this.tapeStateLabel.AutoSize = true;
+            this.tapeStateLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tapeStateLabel.Location = new System.Drawing.Point(53, 190);
+            this.tapeStateLabel.Name = "tapeStateLabel";
+            this.tapeStateLabel.Size = new System.Drawing.Size(0, 13);
+            this.tapeStateLabel.TabIndex = 9;
+            // 
+            // tapePositionLabel
+            // 
+            this.tapePositionLabel.AutoSize = true;
+            this.tapePositionLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tapePositionLabel.Location = new System.Drawing.Point(53, 203);
+            this.tapePositionLabel.Name = "tapePositionLabel";
+            this.tapePositionLabel.Size = new System.Drawing.Size(0, 13);
+            this.tapePositionLabel.TabIndex = 10;
+            // 
+            // consoleBox
+            // 
+            this.consoleBox.Location = new System.Drawing.Point(15, 227);
+            this.consoleBox.Name = "consoleBox";
+            this.consoleBox.Size = new System.Drawing.Size(351, 96);
+            this.consoleBox.TabIndex = 11;
+            this.consoleBox.Text = "";
+            // 
+            // initializeTapeButton
+            // 
+            this.initializeTapeButton.Location = new System.Drawing.Point(15, 129);
+            this.initializeTapeButton.Name = "initializeTapeButton";
+            this.initializeTapeButton.Size = new System.Drawing.Size(95, 45);
+            this.initializeTapeButton.TabIndex = 12;
+            this.initializeTapeButton.Text = "Initialize";
+            this.initializeTapeButton.UseVisualStyleBackColor = true;
+            this.initializeTapeButton.Click += new System.EventHandler(this.initializeTapeButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 305);
+            this.ClientSize = new System.Drawing.Size(380, 335);
+            this.Controls.Add(this.initializeTapeButton);
+            this.Controls.Add(this.consoleBox);
+            this.Controls.Add(this.tapePositionLabel);
+            this.Controls.Add(this.tapeStateLabel);
+            this.Controls.Add(this.tapeLabel);
             this.Controls.Add(this.onTapeValue);
             this.Controls.Add(this.onTapeLabel);
             this.Controls.Add(this.loadTapeButton);
@@ -126,7 +173,6 @@
             this.Controls.Add(this.typeYourTapeLabel);
             this.Controls.Add(this.typeYourTapeField);
             this.Controls.Add(this.takeStepButton);
-            this.Controls.Add(this.resultBox);
             this.Name = "Form1";
             this.Text = "BinAddTuringMachine";
             this.ResumeLayout(false);
@@ -135,8 +181,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox resultBox;
         private System.Windows.Forms.Button takeStepButton;
         private System.Windows.Forms.TextBox typeYourTapeField;
         private System.Windows.Forms.Label typeYourTapeLabel;
@@ -144,6 +188,11 @@
         private System.Windows.Forms.Button loadTapeButton;
         private System.Windows.Forms.Label onTapeLabel;
         private System.Windows.Forms.Label onTapeValue;
+        private System.Windows.Forms.Label tapeLabel;
+        private System.Windows.Forms.Label tapeStateLabel;
+        private System.Windows.Forms.Label tapePositionLabel;
+        private System.Windows.Forms.RichTextBox consoleBox;
+        private System.Windows.Forms.Button initializeTapeButton;
     }
 }
 

@@ -11,6 +11,7 @@ namespace BinAddTuringProgram
         private int tapeIndex;
         private int firstSymbolIndex;
         private string currentSymbol;
+        private string initialTapeContent;
 
         private List<string> tape;
         private List<string>.Enumerator enumerator;
@@ -24,7 +25,7 @@ namespace BinAddTuringProgram
             this.tapeIndex = 0;
             this.firstSymbolIndex = 0;
             this.currentSymbol = null;
-            this.enumerator = tape.GetEnumerator();
+            //this.enumerator = tape.GetEnumerator();
         }
 
         public string CurrentSymbol
@@ -36,6 +37,18 @@ namespace BinAddTuringProgram
             set
             {
                 this.currentSymbol = value;
+            }
+        }
+
+        public string InitialTapeContent
+        {
+            get
+            {
+                return this.initialTapeContent;
+            }
+            set
+            {
+                this.initialTapeContent = value;
             }
         }
 
