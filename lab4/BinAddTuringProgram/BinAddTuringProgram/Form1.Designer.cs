@@ -107,9 +107,9 @@
             this.onTapeValue.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.onTapeValue.Location = new System.Drawing.Point(89, 102);
             this.onTapeValue.Name = "onTapeValue";
-            this.onTapeValue.Size = new System.Drawing.Size(73, 13);
+            this.onTapeValue.Size = new System.Drawing.Size(13, 13);
             this.onTapeValue.TabIndex = 7;
-            this.onTapeValue.Text = "The program";
+            this.onTapeValue.Text = " ";
             // 
             // tapeLabel
             // 
@@ -128,6 +128,7 @@
             this.tapeStateLabel.Name = "tapeStateLabel";
             this.tapeStateLabel.Size = new System.Drawing.Size(0, 13);
             this.tapeStateLabel.TabIndex = 9;
+            this.tapeStateLabel.Text = " ";
             // 
             // tapePositionLabel
             // 
@@ -137,6 +138,7 @@
             this.tapePositionLabel.Name = "tapePositionLabel";
             this.tapePositionLabel.Size = new System.Drawing.Size(0, 13);
             this.tapePositionLabel.TabIndex = 10;
+            this.tapePositionLabel.Text = " ";
             // 
             // consoleBox
             // 

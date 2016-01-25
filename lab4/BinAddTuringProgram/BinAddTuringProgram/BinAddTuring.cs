@@ -20,16 +20,22 @@ namespace BinAddTuringProgram
         private State currentState;
         private List<State> states;
 
-        public BinAddTuring(string blank, int maxLength)
+        public BinAddTuring(string blank, string content)
         {
             this.headPosition = 0;
             this.currentSymbol = "";
             this.currentState = State.Q0;
+            this.states = new List<State>();
             this.states.Add(this.currentState);
 
             this.blank = blank;
-            this.maxTapeLength = maxLength;
+            this.initialTapeContent = content;
+            this.maxTapeLength = content.Length;
             this.tape = new List<string>(maxTapeLength);
+            foreach(char symbol in initialTapeContent)
+            {
+                tape.Add(symbol.ToString());
+            }
         }
 
         public State CurrentState
@@ -56,14 +62,6 @@ namespace BinAddTuringProgram
             }
         }
 
-        public string InitialTapeContent
-        {
-            set
-            {
-                this.initialTapeContent = value;
-            }
-        }
-
         public int HeadPosition
         {
             get
@@ -76,7 +74,14 @@ namespace BinAddTuringProgram
             }
         }
 
-        public State TakeStep()
+        public int MaxTapeLength
+        {
+            get
+            {
+                return this.maxTapeLength;
+            }
+        }
+        public void TakeStep()
         {
             this.CurrentSymbol = ReadTape();
             switch(CurrentState)
@@ -114,7 +119,6 @@ namespace BinAddTuringProgram
                 case State.QF:
                     break;
             }
-            return CurrentState;
         }
 
         private void moveFromQ0()

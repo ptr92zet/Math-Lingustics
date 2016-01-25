@@ -14,20 +14,26 @@ namespace BinAddTuringProgram
     public partial class Form1 : Form
     {
         private BinAddTuring turing;
-        private char[] positionArray;
-        private string tape;
-        private int index = 0;
+        private string fullTapeContent;
+        private int headPos = 0;
+        private int previousHeadPos = 0;
+        private bool isTuringInitialized = false;
+
+
+        private string[] positionArray;
+
         public Form1()
         {
             InitializeComponent();
-            turing = new BinAddTuring("#", "#");
         }
 
         private void showHeadPosition()
         {
-            positionArray = tapeStateLabel.Text.ToCharArray();
-            positionArray[index] = '^';
-            tapePositionLabel.Text = positionArray[index].ToString();
+            Console.WriteLine("previousHeadPos: " + previousHeadPos.ToString());
+            Console.WriteLine("headPos: " + headPos.ToString());
+            positionArray[previousHeadPos] = "";
+            positionArray[headPos] = "^";
+            tapePositionLabel.Text = String.Join("", positionArray);
         }
 
         private void loadTapeCheckBox_CheckStateChanged(object sender, EventArgs e)
@@ -61,28 +67,46 @@ namespace BinAddTuringProgram
 
         private void takeStepButton_Click(object sender, EventArgs e)
         {
-            string tapeSymbol;
-            index = turing.TapeIndex;
-            if (turing.InitialTapeContent != null)
+            if (isTuringInitialized)
             {
-                tapeSymbol = turing.InitialTapeContent[index].ToString();
-                turing.CurrentSymbol = tapeSymbol;
-            }
+                previousHeadPos = turing.HeadPosition;
+                if (turing.CurrentState != State.QF)
+                {
+                    turing.TakeStep();
+                    Console.WriteLine("I am in: " + turing.CurrentState + ", symbol is: " + turing.CurrentSymbol + "position: " + turing.HeadPosition.ToString());
 
+                }
+                else
+                {
+                    Console.WriteLine("FINAL STATE REACHED!");
+                }
+                consoleBox.Text += "\n" + turing.CurrentState.ToString();
+                headPos = turing.HeadPosition;
+                showHeadPosition();
+            }
+            else
+            {
+                MessageBox.Show("You have to initialize Turing Machine first!");
+            }
         }
 
         private void initializeTapeButton_Click(object sender, EventArgs e)
         {
             if (loadTapeCheckBox.Checked)
             {
-                turing.InitialTapeContent = onTapeValue.Text;
+                fullTapeContent = onTapeValue.Text;
             }
             else
             {
-                turing.InitialTapeContent = typeYourTapeField.Text;
+                fullTapeContent = typeYourTapeField.Text;
             }
-            tapeStateLabel.Text = turing.InitialTapeContent;
+            tapeStateLabel.Text = fullTapeContent;
+            Console.WriteLine("fullTapeContent: " + fullTapeContent);
+            turing = new BinAddTuring("#", fullTapeContent);
+            Console.WriteLine("turing.CurrentState: " + turing.CurrentState + ", turing.CurrentSymbol: " + turing.CurrentSymbol + ", turing.HeadPosition: " + turing.HeadPosition.ToString());
+            positionArray = new string[turing.MaxTapeLength];
             showHeadPosition();
+            isTuringInitialized = true;
         }
     }
 }
