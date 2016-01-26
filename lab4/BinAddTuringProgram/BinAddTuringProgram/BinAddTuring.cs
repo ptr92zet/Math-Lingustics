@@ -81,6 +81,21 @@ namespace BinAddTuringProgram
                 return this.maxTapeLength;
             }
         }
+
+        public string Tape
+        {
+            get
+            {
+                string[] tapeSymbols;
+                StringBuilder builder = new StringBuilder();
+                tapeSymbols = tape.ToArray();
+                foreach (string symbol in tapeSymbols)
+                {
+                    builder.Append(symbol);
+                }
+                return builder.ToString();
+            }
+        }
         public void TakeStep()
         {
             this.CurrentSymbol = ReadTape();

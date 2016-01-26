@@ -40,13 +40,14 @@
             this.tapePositionLabel = new System.Windows.Forms.Label();
             this.consoleBox = new System.Windows.Forms.RichTextBox();
             this.initializeTapeButton = new System.Windows.Forms.Button();
+            this.runButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // takeStepButton
             // 
             this.takeStepButton.Location = new System.Drawing.Point(116, 129);
             this.takeStepButton.Name = "takeStepButton";
-            this.takeStepButton.Size = new System.Drawing.Size(251, 45);
+            this.takeStepButton.Size = new System.Drawing.Size(190, 45);
             this.takeStepButton.TabIndex = 1;
             this.takeStepButton.Text = "Take step";
             this.takeStepButton.UseVisualStyleBackColor = true;
@@ -126,7 +127,7 @@
             this.tapeStateLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tapeStateLabel.Location = new System.Drawing.Point(53, 190);
             this.tapeStateLabel.Name = "tapeStateLabel";
-            this.tapeStateLabel.Size = new System.Drawing.Size(0, 13);
+            this.tapeStateLabel.Size = new System.Drawing.Size(13, 13);
             this.tapeStateLabel.TabIndex = 9;
             this.tapeStateLabel.Text = " ";
             // 
@@ -136,7 +137,7 @@
             this.tapePositionLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tapePositionLabel.Location = new System.Drawing.Point(53, 203);
             this.tapePositionLabel.Name = "tapePositionLabel";
-            this.tapePositionLabel.Size = new System.Drawing.Size(0, 13);
+            this.tapePositionLabel.Size = new System.Drawing.Size(13, 13);
             this.tapePositionLabel.TabIndex = 10;
             this.tapePositionLabel.Text = " ";
             // 
@@ -158,11 +159,22 @@
             this.initializeTapeButton.UseVisualStyleBackColor = true;
             this.initializeTapeButton.Click += new System.EventHandler(this.initializeTapeButton_Click);
             // 
+            // runButton
+            // 
+            this.runButton.Location = new System.Drawing.Point(313, 129);
+            this.runButton.Name = "runButton";
+            this.runButton.Size = new System.Drawing.Size(53, 45);
+            this.runButton.TabIndex = 13;
+            this.runButton.Text = "Run";
+            this.runButton.UseVisualStyleBackColor = true;
+            this.runButton.Click += new System.EventHandler(this.runButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(380, 335);
+            this.Controls.Add(this.runButton);
             this.Controls.Add(this.initializeTapeButton);
             this.Controls.Add(this.consoleBox);
             this.Controls.Add(this.tapePositionLabel);
@@ -195,6 +207,7 @@
         private System.Windows.Forms.Label tapePositionLabel;
         private System.Windows.Forms.RichTextBox consoleBox;
         private System.Windows.Forms.Button initializeTapeButton;
+        private System.Windows.Forms.Button runButton;
     }
 }
 
