@@ -18,16 +18,12 @@ namespace BinAddTuringProgram
         private List<string> tape;
 
         private State currentState;
-        private List<State> states;
 
         public BinAddTuring(string blank, string content)
         {
             this.headPosition = 0;
             this.currentSymbol = "";
             this.currentState = State.Q0;
-            this.states = new List<State>();
-            this.states.Add(this.currentState);
-
             this.blank = blank;
             this.initialTapeContent = content;
             this.maxTapeLength = content.Length;
@@ -56,7 +52,7 @@ namespace BinAddTuringProgram
             {
                 return this.currentSymbol;
             }
-            set
+            private set
             {
                 this.currentSymbol = value;
             }
@@ -136,223 +132,6 @@ namespace BinAddTuringProgram
             }
         }
 
-        private void moveFromQ0()
-        {
-            switch(this.CurrentSymbol)
-            {
-                case "#":
-                    CurrentState = State.Q0;
-                    states.Add(CurrentState);
-                    WriteTape("#");
-                    MoveHeadRight();
-                    break;
-                case "0":
-                    CurrentState = State.Q1;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadRight();
-                    break;
-                case "1":
-                    CurrentState = State.Q1;
-                    states.Add(CurrentState);
-                    WriteTape("1");
-                    MoveHeadRight();
-                    break;
-            }
-        }
-        private void moveFromQ1()
-        {
-            switch (this.CurrentSymbol)
-            {
-                case "#":
-                    CurrentState = State.Q2;
-                    states.Add(CurrentState);
-                    WriteTape("#");
-                    MoveHeadLeft();
-                    break;
-                case "0":
-                    CurrentState = State.Q1;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadRight();
-                    break;
-                case "1":
-                    CurrentState = State.Q1;
-                    states.Add(CurrentState);
-                    WriteTape("1");
-                    MoveHeadRight();
-                    break;
-            }
-        }
-        private void moveFromQ2()
-        {
-            switch (this.CurrentSymbol)
-            {
-                case "0":
-                    CurrentState = State.Q5;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadLeft();
-                    break;
-                case "1":
-                    CurrentState = State.Q3;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadRight();
-                    break;
-            }
-        }
-        private void moveFromQ3()
-        {
-            switch (this.CurrentSymbol)
-            {
-                case "#":
-                    CurrentState = State.Q4;
-                    states.Add(CurrentState);
-                    WriteTape("#");
-                    MoveHeadRight();
-                    break;
-                case "0":
-                    CurrentState = State.Q3;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadRight();
-                    break;
-                case "1":
-                    CurrentState = State.Q3;
-                    states.Add(CurrentState);
-                    WriteTape("1");
-                    MoveHeadRight();
-                    break;
-            }
-        }
-        private void moveFromQ4()
-        {
-            switch (this.CurrentSymbol)
-            {
-                case "#":
-                    CurrentState = State.Q7;
-                    states.Add(CurrentState);
-                    WriteTape("#");
-                    MoveHeadLeft();
-                    break;
-                case "0":
-                    CurrentState = State.Q4;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadRight();
-                    break;
-                case "1":
-                    CurrentState = State.Q4;
-                    states.Add(CurrentState);
-                    WriteTape("1");
-                    MoveHeadRight();
-                    break;
-            }
-        }
-        private void moveFromQ5()
-        {
-            switch (this.CurrentSymbol)
-            {
-                case "#":
-                    CurrentState = State.QF;
-                    states.Add(CurrentState);
-                    WriteTape("#");
-                    //MoveHeadLeft();
-                    break;
-                case "0":
-                    CurrentState = State.Q5;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadLeft();
-                    break;
-                case "1":
-                    CurrentState = State.Q6;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadRight();
-                    break;
-            }
-        }
-        private void moveFromQ6()
-        {
-            switch (this.CurrentSymbol)
-            {
-                case "#":
-                    CurrentState = State.Q4;
-                    states.Add(CurrentState);
-                    WriteTape("#");
-                    MoveHeadRight();
-                    break;
-                case "0":
-                    CurrentState = State.Q6;
-                    states.Add(CurrentState);
-                    WriteTape("1");
-                    MoveHeadRight();
-                    break;
-            }
-        }
-        private void moveFromQ7()
-        {
-            switch (this.CurrentSymbol)
-            {
-                case "0":
-                    CurrentState = State.Q8;
-                    states.Add(CurrentState);
-                    WriteTape("1");
-                    MoveHeadLeft();
-                    break;
-                case "1":
-                    CurrentState = State.Q9;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadLeft();
-                    break;
-            }
-        }
-        private void moveFromQ8()
-        {
-            switch (this.CurrentSymbol)
-            {
-                case "#":
-                    CurrentState = State.Q2;
-                    states.Add(CurrentState);
-                    WriteTape("#");
-                    MoveHeadLeft();
-                    break;
-                case "0":
-                    CurrentState = State.Q8;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadLeft();
-                    break;
-                case "1":
-                    CurrentState = State.Q8;
-                    states.Add(CurrentState);
-                    WriteTape("1");
-                    MoveHeadLeft();
-                    break;
-            }
-        }
-        private void moveFromQ9()
-        {
-            switch (this.CurrentSymbol)
-            {
-                case "0":
-                    CurrentState = State.Q8;
-                    states.Add(CurrentState);
-                    WriteTape("1");
-                    MoveHeadLeft();
-                    break;
-                case "1":
-                    CurrentState = State.Q9;
-                    states.Add(CurrentState);
-                    WriteTape("0");
-                    MoveHeadLeft();
-                    break;
-            }
-        }
-
         public void MoveHeadLeft()
         {
             if (HeadPosition > 0)
@@ -382,6 +161,197 @@ namespace BinAddTuringProgram
         public void WriteTape(string symbol)
         {
             tape[HeadPosition] = symbol;
+        }
+
+        private void moveFromQ0()
+        {
+            switch(this.CurrentSymbol)
+            {
+                case "#":
+                    CurrentState = State.Q0;
+                    WriteTape("#");
+                    MoveHeadRight();
+                    break;
+                case "0":
+                    CurrentState = State.Q1;
+                    WriteTape("0");
+                    MoveHeadRight();
+                    break;
+                case "1":
+                    CurrentState = State.Q1;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ1()
+        {
+            switch (this.CurrentSymbol)
+            {
+                case "#":
+                    CurrentState = State.Q2;
+                    WriteTape("#");
+                    MoveHeadLeft();
+                    break;
+                case "0":
+                    CurrentState = State.Q1;
+                    WriteTape("0");
+                    MoveHeadRight();
+                    break;
+                case "1":
+                    CurrentState = State.Q1;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ2()
+        {
+            switch (this.CurrentSymbol)
+            {
+                case "0":
+                    CurrentState = State.Q5;
+                    WriteTape("0");
+                    MoveHeadLeft();
+                    break;
+                case "1":
+                    CurrentState = State.Q3;
+                    WriteTape("0");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ3()
+        {
+            switch (this.CurrentSymbol)
+            {
+                case "#":
+                    CurrentState = State.Q4;
+                    WriteTape("#");
+                    MoveHeadRight();
+                    break;
+                case "0":
+                    CurrentState = State.Q3;
+                    WriteTape("0");
+                    MoveHeadRight();
+                    break;
+                case "1":
+                    CurrentState = State.Q3;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ4()
+        {
+            switch (this.CurrentSymbol)
+            {
+                case "#":
+                    CurrentState = State.Q7;
+                    WriteTape("#");
+                    MoveHeadLeft();
+                    break;
+                case "0":
+                    CurrentState = State.Q4;
+                    WriteTape("0");
+                    MoveHeadRight();
+                    break;
+                case "1":
+                    CurrentState = State.Q4;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ5()
+        {
+            switch (this.CurrentSymbol)
+            {
+                case "#":
+                    CurrentState = State.QF;
+                    WriteTape("#");
+                    //MoveHeadLeft();
+                    break;
+                case "0":
+                    CurrentState = State.Q5;
+                    WriteTape("0");
+                    MoveHeadLeft();
+                    break;
+                case "1":
+                    CurrentState = State.Q6;
+                    WriteTape("0");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ6()
+        {
+            switch (this.CurrentSymbol)
+            {
+                case "#":
+                    CurrentState = State.Q4;
+                    WriteTape("#");
+                    MoveHeadRight();
+                    break;
+                case "0":
+                    CurrentState = State.Q6;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ7()
+        {
+            switch (this.CurrentSymbol)
+            {
+                case "0":
+                    CurrentState = State.Q8;
+                    WriteTape("1");
+                    MoveHeadLeft();
+                    break;
+                case "1":
+                    CurrentState = State.Q9;
+                    WriteTape("0");
+                    MoveHeadLeft();
+                    break;
+            }
+        }
+        private void moveFromQ8()
+        {
+            switch (this.CurrentSymbol)
+            {
+                case "#":
+                    CurrentState = State.Q2;
+                    WriteTape("#");
+                    MoveHeadLeft();
+                    break;
+                case "0":
+                    CurrentState = State.Q8;
+                    WriteTape("0");
+                    MoveHeadLeft();
+                    break;
+                case "1":
+                    CurrentState = State.Q8;
+                    WriteTape("1");
+                    MoveHeadLeft();
+                    break;
+            }
+        }
+        private void moveFromQ9()
+        {
+            switch (this.CurrentSymbol)
+            {
+                case "0":
+                    CurrentState = State.Q8;
+                    WriteTape("1");
+                    MoveHeadLeft();
+                    break;
+                case "1":
+                    CurrentState = State.Q9;
+                    WriteTape("0");
+                    MoveHeadLeft();
+                    break;
+            }
         }
     }
 
