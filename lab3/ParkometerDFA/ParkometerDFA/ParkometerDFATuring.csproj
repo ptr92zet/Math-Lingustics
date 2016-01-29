@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DFATuring.cs" />
+    <Compile Include="ITuringMachine.cs" />
     <Compile Include="ParkometerDFATuringForm.cs">
       <SubType>Form</SubType>
     </Compile>

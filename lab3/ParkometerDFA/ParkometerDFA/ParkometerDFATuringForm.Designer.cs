@@ -39,7 +39,10 @@
             this.tapeContentLabel = new System.Windows.Forms.Label();
             this.currentTapeIndexLabel = new System.Windows.Forms.Label();
             this.currentTapeIndex = new System.Windows.Forms.Label();
-            this.resetButton = new System.Windows.Forms.Button();
+            this.initializeButton = new System.Windows.Forms.Button();
+            this.runButton = new System.Windows.Forms.Button();
+            this.clearButon = new System.Windows.Forms.Button();
+            this.onTapeValue = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // coinToInsertLabel
@@ -100,9 +103,9 @@
             // 
             // readTapeButton
             // 
-            this.readTapeButton.Location = new System.Drawing.Point(91, 42);
+            this.readTapeButton.Location = new System.Drawing.Point(78, 42);
             this.readTapeButton.Name = "readTapeButton";
-            this.readTapeButton.Size = new System.Drawing.Size(224, 23);
+            this.readTapeButton.Size = new System.Drawing.Size(192, 23);
             this.readTapeButton.TabIndex = 7;
             this.readTapeButton.Text = "Read tape";
             this.readTapeButton.UseVisualStyleBackColor = true;
@@ -143,22 +146,54 @@
             this.currentTapeIndex.TabIndex = 11;
             this.currentTapeIndex.Text = " ";
             // 
-            // resetButton
+            // initializeButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(16, 42);
-            this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(56, 23);
-            this.resetButton.TabIndex = 12;
-            this.resetButton.Text = "Reset";
-            this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            this.initializeButton.Location = new System.Drawing.Point(16, 42);
+            this.initializeButton.Name = "initializeButton";
+            this.initializeButton.Size = new System.Drawing.Size(56, 23);
+            this.initializeButton.TabIndex = 12;
+            this.initializeButton.Text = "Initialize";
+            this.initializeButton.UseVisualStyleBackColor = true;
+            this.initializeButton.Click += new System.EventHandler(this.initializeButton_Click);
+            // 
+            // runButton
+            // 
+            this.runButton.Location = new System.Drawing.Point(276, 42);
+            this.runButton.Name = "runButton";
+            this.runButton.Size = new System.Drawing.Size(39, 23);
+            this.runButton.TabIndex = 13;
+            this.runButton.Text = "Run";
+            this.runButton.UseVisualStyleBackColor = true;
+            this.runButton.Click += new System.EventHandler(this.runButton_Click);
+            // 
+            // clearButon
+            // 
+            this.clearButon.Location = new System.Drawing.Point(12, 96);
+            this.clearButon.Name = "clearButon";
+            this.clearButon.Size = new System.Drawing.Size(49, 23);
+            this.clearButon.TabIndex = 14;
+            this.clearButon.Text = "Clear";
+            this.clearButon.UseVisualStyleBackColor = true;
+            this.clearButon.Click += new System.EventHandler(this.clearButon_Click);
+            // 
+            // onTapeValue
+            // 
+            this.onTapeValue.AutoSize = true;
+            this.onTapeValue.Location = new System.Drawing.Point(67, 80);
+            this.onTapeValue.Name = "onTapeValue";
+            this.onTapeValue.Size = new System.Drawing.Size(10, 13);
+            this.onTapeValue.TabIndex = 15;
+            this.onTapeValue.Text = " ";
             // 
             // ParkometerDFATuringForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(331, 281);
-            this.Controls.Add(this.resetButton);
+            this.Controls.Add(this.onTapeValue);
+            this.Controls.Add(this.clearButon);
+            this.Controls.Add(this.runButton);
+            this.Controls.Add(this.initializeButton);
             this.Controls.Add(this.currentTapeIndex);
             this.Controls.Add(this.currentTapeIndexLabel);
             this.Controls.Add(this.tapeContentLabel);
@@ -190,7 +225,10 @@
         private System.Windows.Forms.Label tapeContentLabel;
         private System.Windows.Forms.Label currentTapeIndexLabel;
         private System.Windows.Forms.Label currentTapeIndex;
-        private System.Windows.Forms.Button resetButton;
+        private System.Windows.Forms.Button initializeButton;
+        private System.Windows.Forms.Button runButton;
+        private System.Windows.Forms.Button clearButon;
+        private System.Windows.Forms.Label onTapeValue;
     }
 }
 

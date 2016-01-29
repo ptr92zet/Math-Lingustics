@@ -7,283 +7,393 @@ using System.Windows.Forms;
 
 namespace ParkometerDFATuring
 {
-    public class DFATuring
+    public class DFATuring : BinAddTuringProgram.ITuringMachine
     {
-        private State currentState;
-        private int currentCoin;
-        private int currentTapeIndex;
-        private List<State> stateList = new List<State>();
-        private List<int> tape = new List<int>();
-        private List<int> unnecessaryCoins = new List<int>();
-        int rest = 0;
-        private bool reachedEndOfTape;
+        private int headPosition;
+        private int maxTapeLength;
 
-        public DFATuring()
+        private string currentCoin;
+        private string initialTapeContent;
+
+        private State currentState;
+           
+        private List<string> tape;
+        
+
+        public DFATuring(int maxLength)
         {
             this.Reset();
+            this.maxTapeLength = maxLength;
+            this.tape = new List<string>(maxTapeLength);
         }
 
         public State CurrentState
         {
             get
             {
-                return currentState;
+                return this.currentState;
+            }
+            private set
+            {
+                this.currentState = value;
             }
         }
 
-        public int CurrentTapeIndex
+        public string CurrentCoin
         {
             get
             {
-                return currentTapeIndex;
+                return this.currentCoin;
+            }
+            private set
+            {
+                this.currentCoin = value;
             }
         }
 
-        public int[] GetTapeElements()
+        public int HeadPosition
         {
-            return tape.ToArray();
-        }
-
-        public void AddToTape(int coin)
-        {
-            tape.Add(coin);
-        }
-
-        private void SetCurrentState(State newState)
-        {
-            this.currentState = newState;
-            stateList.Add(this.currentState);
-        }
-
-        private void ApplyWord1()
-        {
-            switch (this.CurrentState)
+            get
             {
-                case State.Empty:
-                    SetCurrentState(State.PLN1);
-                    break;
-                case State.PLN1:
-                    SetCurrentState(State.PLN2);
-                    break;
-                case State.PLN2:
-                    SetCurrentState(State.PLN3);
-                    break;
-                case State.PLN3:
-                    SetCurrentState(State.PLN4);
-                    break;
-                case State.PLN4:
-                    SetCurrentState(State.PLN5);
-                    break;
-                case State.PLN5:
-                    SetCurrentState(State.PLN6);
-                    break;
-                case State.PLN6:
-                    SetCurrentState(State.Full);
-                    break;
-                case State.Full:
-                    SetCurrentState(State.Full);
-                    unnecessaryCoins.Add(1);
-                    rest += 1;
-                    break;
+                return this.headPosition;
             }
-        }
-        private void ApplyWord2()
-        {
-            switch (this.CurrentState)
+            private set
             {
-                case State.Empty:
-                    SetCurrentState(State.PLN2);
-                    break;
-                case State.PLN1:
-                    SetCurrentState(State.PLN3);
-                    break;
-                case State.PLN2:
-                    SetCurrentState(State.PLN4);
-                    break;
-                case State.PLN3:
-                    SetCurrentState(State.PLN5);
-                    break;
-                case State.PLN4:
-                    SetCurrentState(State.PLN6);
-                    break;
-                case State.PLN5:
-                    SetCurrentState(State.Full);
-                    break;
-                case State.PLN6:
-                    SetCurrentState(State.Full);
-                    rest += 1;
-                    break;
-                case State.Full:
-                    SetCurrentState(State.Full);
-                    unnecessaryCoins.Add(2);
-                    rest += 2;
-                    break;
-            }
-        }
-        private void ApplyWord5()
-        {
-            switch (this.CurrentState)
-            {
-                case State.Empty:
-                    SetCurrentState(State.PLN5);
-                    break;
-                case State.PLN1:
-                    SetCurrentState(State.PLN6);
-                    break;
-                case State.PLN2:
-                    SetCurrentState(State.Full);
-                    break;
-                case State.PLN3:
-                    SetCurrentState(State.Full);
-                    rest += 1;
-                    break;
-                case State.PLN4:
-                    SetCurrentState(State.Full);
-                    rest += 2;
-                    break;
-                case State.PLN5:
-                    SetCurrentState(State.Full);
-                    rest += 3;
-                    break;
-                case State.PLN6:
-                    SetCurrentState(State.Full);
-                    rest += 4;
-                    break;
-                case State.Full:
-                    SetCurrentState(State.Full);
-                    unnecessaryCoins.Add(5);
-                    rest += 5;
-                    break;
+                this.headPosition = value;
             }
         }
 
-        public bool MoveToNextState()
+        public string Tape
         {
-            if (tape != null && currentTapeIndex < tape.Count)
+            get
             {
-                currentCoin = tape[currentTapeIndex];
-                switch (currentCoin)
+                string[] tapeSymbols;
+                StringBuilder builder = new StringBuilder();
+                tapeSymbols = this.tape.ToArray();
+                foreach (string symbol in tapeSymbols)
                 {
-                    case 1:
-                        ApplyWord1();
-                        break;
-                    case 2:
-                        ApplyWord2();
-                        break;
-                    case 5:
-                        ApplyWord5();
-                        break;
+                    builder.Append(symbol);
                 }
-                currentTapeIndex++;
-                if (currentTapeIndex == tape.Count)
+                return builder.ToString();
+            }
+        }
+
+        public bool IsTapeInitialized { get; set; }
+
+        public void TakeStep()
+        {
+            if (tape != null)
+            {
+                this.currentCoin = ReadTape();
+                if (currentCoin != "")
                 {
-                    reachedEndOfTape = true;
+                    switch (CurrentState)
+                    {
+                        case State.Q0:
+                            moveFromQ0();
+                            break;
+                        case State.Q1:
+                            moveFromQ1();
+                            break;
+                        case State.Q2:
+                            moveFromQ2();
+                            break;
+                        case State.Q3:
+                            moveFromQ3();
+                            break;
+                        case State.Q4:
+                            moveFromQ4();
+                            break;
+                        case State.Q5:
+                            moveFromQ5();
+                            break;
+                        case State.Q6:
+                            moveFromQ6();
+                            break;
+                        case State.Q7F:
+                            moveFromQ7F();
+                            break;
+                        case State.Q8:
+                            moveFromQ8();
+                            break;
+                        case State.Q9:
+                            moveFromQ9();
+                            break;
+                        case State.Q10:
+                            moveFromQ10();
+                            break;
+                        case State.Q11:
+                            moveFromQ11();
+                            break;
+                    }
                 }
             }
-
-            return reachedEndOfTape;
-            
         }
 
-        public string RetrieveAllTransitions()
+        public void MoveHeadLeft()
         {
-            StringBuilder builder = new StringBuilder();
-            builder.Append(retrieveStateTransitions());
-            builder.Append(retrieveUnnecessaryCoins());
-            builder.Append(retrieveRest());
-            builder.Append(retrieveReturnedCoins());
-            return builder.ToString();
+            if (HeadPosition > 0)
+            {
+                HeadPosition--;
+            }
+            else
+            {
+                throw new Exception("Stepped out out the tape!");
+            }
+        }
+
+        public void MoveHeadRight()
+        {
+            if (HeadPosition < tape.Count)
+            {
+                HeadPosition++;
+            }
+        }
+
+        public string ReadTape()
+        {
+            if (tape.Count != 0)
+            {
+                currentCoin = tape[HeadPosition];
+            }
+            else
+            {
+                currentCoin = "";
+            }
+            return currentCoin;
+        }
+
+        public void WriteTape(string symbol)
+        {
+            tape[HeadPosition] = symbol;
         }
 
         public void Reset()
         {
-            this.stateList.Clear();
-            this.tape.Clear();
-            this.unnecessaryCoins.Clear();
-            this.currentState = State.Empty;
-            this.rest = 0;
-            this.currentCoin = 0;
-            this.currentTapeIndex = 0;
-            this.reachedEndOfTape = false;
-            this.stateList.Add(this.currentState);
+            this.headPosition = 0;
+            this.currentCoin = "";
+            this.currentState = State.Q0;
+            this.IsTapeInitialized = false;
         }
 
-        private string retrieveStateTransitions()
+        public void AddToTape(string coin)
         {
-            StringBuilder builder = new StringBuilder("States: ");
-            foreach (State state in stateList)
-            {
-                builder.Append(state.ToString()).Append(", ");
-            }
-            builder.Append("\n");
-            return builder.ToString();
+            tape.Add(coin);
         }
 
-        private string retrieveUnnecessaryCoins()
+        public void InitializeTape(List<string> initList)
         {
-            StringBuilder builder = new StringBuilder("Unnecessary coins: ");
-            foreach (int coin in unnecessaryCoins)
+            this.tape = new List<string>(maxTapeLength);
+            foreach (string symbol in initList)
             {
-                builder.Append(coin.ToString()).Append(", ");
+                this.tape.Add(symbol);
             }
-            builder.Append("\n");
-            return builder.ToString();
+            IsTapeInitialized = true;
         }
 
-        private string retrieveRest()
+        private void moveFromQ0()
         {
-            return "Rest: " + rest.ToString() + "\n";
+            switch (this.CurrentCoin)
+            {
+                case "1":
+                    CurrentState = State.Q1;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+                case "2":
+                    CurrentState = State.Q3;
+                    WriteTape("2");
+                    MoveHeadRight();
+                    break;
+                case "5":
+                    CurrentState = State.Q5;
+                    WriteTape("5");
+                    MoveHeadRight();
+                    break;
+            }
         }
-
-        private string retrieveReturnedCoins()
+        private void moveFromQ1()
         {
-            StringBuilder builder = new StringBuilder("Returned coins: ");
-
-            int dividedByFive = this.rest / 5;
-            Console.WriteLine("dividedByFive " + dividedByFive.ToString());
-            for (int i = 0; i < dividedByFive; i++)
+            switch (this.CurrentCoin)
             {
-                builder.Append("5, ");
+                case "1":
+                    CurrentState = State.Q2;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+                case "2":
+                    CurrentState = State.Q3;
+                    WriteTape("2");
+                    MoveHeadRight();
+                    break;
+                case "5":
+                    CurrentState = State.Q6;
+                    WriteTape("5");
+                    MoveHeadRight();
+                    break;
             }
-
-            int restFromDivisionByFive = this.rest - (dividedByFive * 5);
-            Console.WriteLine("restFromDivisionByFive " + restFromDivisionByFive.ToString());
-            if (restFromDivisionByFive > 1)
-            {
-                int dividedByTwo = restFromDivisionByFive / 2;
-                Console.WriteLine("dividedByTwo " + dividedByTwo.ToString());
-                for (int i = 0; i < dividedByTwo; i++)
-                {
-                    builder.Append("2, ");
-                }
-                int restFromDivisionByTwo = dividedByTwo % 2;
-                Console.WriteLine("restFromDivisionByTwo " + restFromDivisionByTwo.ToString());
-                if (restFromDivisionByTwo == 1)
-                {
-                    builder.Append("1, ");
-                }
-            }
-            else
-            {
-                builder.Append("1, ");
-            }
-            builder.Append("\n");
-
-            Console.WriteLine("builder " + builder.ToString());
-            return builder.ToString();
         }
-
+        private void moveFromQ2()
+        {
+            switch (this.CurrentCoin)
+            {
+                case "1":
+                    CurrentState = State.Q3;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+                case "2":
+                    CurrentState = State.Q4;
+                    WriteTape("2");
+                    MoveHeadRight();
+                    break;
+                case "5":
+                    CurrentState = State.Q7F;
+                    WriteTape("5");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ3()
+        {
+            switch (this.CurrentCoin)
+            {
+                case "1":
+                    CurrentState = State.Q4;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+                case "2":
+                    CurrentState = State.Q5;
+                    WriteTape("2");
+                    MoveHeadRight();
+                    break;
+                case "5":
+                    CurrentState = State.Q8;
+                    WriteTape("5");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ4()
+        {
+            switch (this.CurrentCoin)
+            {
+                case "1":
+                    CurrentState = State.Q5;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+                case "2":
+                    CurrentState = State.Q6;
+                    WriteTape("2");
+                    MoveHeadRight();
+                    break;
+                case "5":
+                    CurrentState = State.Q9;
+                    WriteTape("5");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ5()
+        {
+            switch (this.CurrentCoin)
+            {
+                case "1":
+                    CurrentState = State.Q6;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+                case "2":
+                    CurrentState = State.Q7F;
+                    WriteTape("2");
+                    MoveHeadRight();
+                    break;
+                case "5":
+                    CurrentState = State.Q10;
+                    WriteTape("5");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ6()
+        {
+            switch (this.CurrentCoin)
+            {
+                case "1":
+                    CurrentState = State.Q7F;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+                case "2":
+                    CurrentState = State.Q8;
+                    WriteTape("2");
+                    MoveHeadRight();
+                    break;
+                case "5":
+                    CurrentState = State.Q11;
+                    WriteTape("5");
+                    MoveHeadRight();
+                    break;
+            }
+        }
+        private void moveFromQ7F()
+        {
+            CurrentState = State.Q7F;
+            Console.Write("FINAL STATE REACHED!");
+        }
+        private void moveFromQ8()
+        {
+            CurrentState = State.Q7F;
+            WriteTape("1");
+            CurrentCoin = ReadTape();
+            MoveHeadRight();
+        }
+        private void moveFromQ9()
+        {
+            CurrentState = State.Q7F;
+            WriteTape("2");
+            CurrentCoin = ReadTape();
+            MoveHeadRight();
+        }
+        private void moveFromQ10()
+        {
+            CurrentState = State.Q10;
+            WriteTape("2");
+            CurrentCoin = ReadTape();
+            MoveHeadRight();
+            CurrentState = State.Q7F;
+            WriteTape("1");
+            CurrentCoin = ReadTape();
+            MoveHeadRight();
+        }
+        private void moveFromQ11()
+        {
+            CurrentState = State.Q11;
+            WriteTape("2");
+            CurrentCoin = ReadTape();
+            MoveHeadRight();
+            CurrentState = State.Q7F;
+            WriteTape("2");
+            CurrentCoin = ReadTape();
+            MoveHeadRight();
+        }
     }
 
     public enum State
     {
-        Empty = 0,
-        PLN1,
-        PLN2,
-        PLN3,
-        PLN4,
-        PLN5,
-        PLN6,
-        Full
+        Q0 = 0,
+        Q1,
+        Q2,
+        Q3,
+        Q4,
+        Q5,
+        Q6,
+        Q7F,
+        Q8,
+        Q9,
+        Q10,
+        Q11
     }
 }
