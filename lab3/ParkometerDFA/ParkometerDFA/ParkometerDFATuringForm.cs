@@ -22,7 +22,7 @@ namespace ParkometerDFATuring
         public ParkometerDFATuringForm()
         {
             InitializeComponent();
-            parkometerDFATuring = new DFATuring(256);
+            parkometerDFATuring = new DFATuring(20);
             tape = new List<string>();
             timer = new Stopwatch();
             stepCouter = 0;
@@ -73,6 +73,8 @@ namespace ParkometerDFATuring
                     resultBox.ScrollToCaret();
                     parkometerDFATuring.IsTapeInitialized = false;
                 }
+                Console.WriteLine(parkometerDFATuring.Tape);
+                onTapeValue.Text = parkometerDFATuring.Tape;
             }
             else
             {
@@ -98,6 +100,8 @@ namespace ParkometerDFATuring
             resultBox.AppendText("Current state: " + parkometerDFATuring.CurrentState + ", coin: " + parkometerDFATuring.CurrentCoin + ", position: " + parkometerDFATuring.HeadPosition + ", step: " + stepCouter + "\n");
             resultBox.SelectionStart = resultBox.TextLength;
             resultBox.ScrollToCaret();
+            Console.WriteLine(parkometerDFATuring.Tape);
+            onTapeValue.Text = parkometerDFATuring.Tape;
         }
 
         private void clearButon_Click(object sender, EventArgs e)

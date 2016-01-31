@@ -11,7 +11,7 @@ namespace ParkometerDFATuring
     {
         private int headPosition;
         private int maxTapeLength;
-
+        private int steps;
         private string currentCoin;
         private string initialTapeContent;
 
@@ -126,6 +126,13 @@ namespace ParkometerDFATuring
                             moveFromQ11();
                             break;
                     }
+                    //string[] array = tape.ToArray();
+                    //string sym = "";
+                    //foreach (string s in array)
+                    //{
+                    //    sym += s;
+                    //}
+                    //Console.WriteLine("Tape: " + sym);
                 }
             }
         }
@@ -152,13 +159,9 @@ namespace ParkometerDFATuring
 
         public string ReadTape()
         {
-            if (tape.Count != 0)
+            if (tape.Count != 0 && HeadPosition < tape.Count)
             {
                 currentCoin = tape[HeadPosition];
-            }
-            else
-            {
-                currentCoin = "";
             }
             return currentCoin;
         }
@@ -189,6 +192,20 @@ namespace ParkometerDFATuring
                 this.tape.Add(symbol);
             }
             IsTapeInitialized = true;
+            int lastIndex = tape.FindLastIndex(FindLastSymbol);
+            for (int i=lastIndex+1; i<maxTapeLength; i++)
+            {
+                this.tape.Add("#");
+            }
+            Console.WriteLine(lastIndex);
+            Console.WriteLine(Tape);
+
+        }
+        Predicate<string> pred = FindLastSymbol;
+
+        private static bool FindLastSymbol(string s)
+        {
+            return (s != "#");
         }
 
         private void moveFromQ0()
@@ -201,7 +218,7 @@ namespace ParkometerDFATuring
                     MoveHeadRight();
                     break;
                 case "2":
-                    CurrentState = State.Q3;
+                    CurrentState = State.Q2;
                     WriteTape("2");
                     MoveHeadRight();
                     break;
@@ -345,39 +362,134 @@ namespace ParkometerDFATuring
         }
         private void moveFromQ8()
         {
-            CurrentState = State.Q7F;
-            WriteTape("1");
-            CurrentCoin = ReadTape();
-            MoveHeadRight();
+            switch (this.CurrentCoin)
+            {
+                //case "1":
+                //    CurrentState = State.Q7F;
+                //    WriteTape("1");
+                //    MoveHeadRight();
+                //    break;
+                //case "2":
+                //    CurrentState = State.Q8;
+                //    WriteTape("2");
+                //    MoveHeadRight();
+                //    break;
+                //case "5":
+                //    CurrentState = State.Q11;
+                //    WriteTape("5");
+                //    MoveHeadRight();
+                //    break;
+                case "#":
+                    MoveHeadRight();
+                    CurrentState = State.Q7F;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+            }
+
+            //CurrentCoin = ReadTape();
+            //MoveHeadRight();
         }
         private void moveFromQ9()
         {
-            CurrentState = State.Q7F;
-            WriteTape("2");
-            CurrentCoin = ReadTape();
-            MoveHeadRight();
+            switch (this.CurrentCoin)
+            {
+                //case "1":
+                //    CurrentState = State.Q7F;
+                //    WriteTape("1");
+                //    MoveHeadRight();
+                //    break;
+                //case "2":
+                //    CurrentState = State.Q8;
+                //    WriteTape("2");
+                //    MoveHeadRight();
+                //    break;
+                //case "5":
+                //    CurrentState = State.Q11;
+                //    WriteTape("5");
+                //    MoveHeadRight();
+                //    break;
+                case "#":
+                    MoveHeadRight();
+                    CurrentState = State.Q7F;
+                    WriteTape("2");
+                    MoveHeadRight();
+                    break;
+            }
+            //CurrentState = State.Q7F;
+            //WriteTape("2");
+            //CurrentCoin = ReadTape();
+            //MoveHeadRight();
         }
         private void moveFromQ10()
         {
-            CurrentState = State.Q10;
-            WriteTape("2");
-            CurrentCoin = ReadTape();
-            MoveHeadRight();
-            CurrentState = State.Q7F;
-            WriteTape("1");
-            CurrentCoin = ReadTape();
-            MoveHeadRight();
+            switch (this.CurrentCoin)
+            {
+                //case "1":
+                //    CurrentState = State.Q7F;
+                //    WriteTape("1");
+                //    MoveHeadRight();
+                //    break;
+                case "2":
+                    MoveHeadRight();
+                    CurrentState = State.Q7F;
+                    WriteTape("1");
+                    MoveHeadRight();
+                    break;
+                //case "5":
+                //    CurrentState = State.Q11;
+                //    WriteTape("5");
+                //    MoveHeadRight();
+                //    break;
+                case "#":
+                    MoveHeadRight();
+                    CurrentState = State.Q10;
+                    WriteTape("2");
+                    break;
+            }
+            //CurrentCoin = ReadTape();
+            //WriteTape("2");
+            //MoveHeadRight();
+            //CurrentCoin = ReadTape();
+            //WriteTape("1");
+            //MoveHeadRight();
+            //CurrentState = State.Q7F;
+
         }
         private void moveFromQ11()
         {
-            CurrentState = State.Q11;
-            WriteTape("2");
-            CurrentCoin = ReadTape();
-            MoveHeadRight();
-            CurrentState = State.Q7F;
-            WriteTape("2");
-            CurrentCoin = ReadTape();
-            MoveHeadRight();
+            switch (this.CurrentCoin)
+            {
+                //case "1":
+                //    CurrentState = State.Q7F;
+                //    WriteTape("1");
+                //    MoveHeadRight();
+                //    break;
+                case "2":
+                    MoveHeadRight();
+                    CurrentState = State.Q7F;
+                    WriteTape("2");
+                    MoveHeadRight();
+                    break;
+                //case "5":
+                //    CurrentState = State.Q11;
+                //    WriteTape("5");
+                //    MoveHeadRight();
+                //    break;
+                case "#":
+                    MoveHeadRight();
+                    CurrentState = State.Q11;
+                    WriteTape("2");
+                    break;
+            }
+            //CurrentState = State.Q11;
+            //WriteTape("2");
+            //CurrentCoin = ReadTape();
+            //MoveHeadRight();
+            //CurrentState = State.Q7F;
+            //WriteTape("2");
+            //CurrentCoin = ReadTape();
+            //MoveHeadRight();
         }
     }
 
